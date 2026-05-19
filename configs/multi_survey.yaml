@@ -1,0 +1,19 @@
+# Full multi-survey corpus (~12M spectra): SDSS DR19 BOSS + LAMOST DR8 + APOGEE DR17.
+# Targets H200 (mixed precision, large batch). Not runnable on RTX 4090 with default
+# batch size due to KAN B-spline activation memory expansion.
+
+data:
+  source: real
+  surveys: [sdss, lamost, apogee]
+  root: data/processed
+  num_workers: 8
+
+batch_size: 1024       # H200 141GB HBM3e — adjust down to 256 for A100 40GB
+epochs: 30
+lr: 2.0e-3             # scale lr with batch
+weight_decay: 1.0e-4
+ens_beta: 0.9999
+focal_gamma: 2.0
+label_smoothing: 0.05
+amp: true
+deterministic: true

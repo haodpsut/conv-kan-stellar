@@ -1,0 +1,19 @@
+# Single-survey: SDSS DR19 BOSS only. Reproduces the prior IEEE TAI numbers.
+# Run after `scripts/preprocess.py --raw data/raw --out data/processed` populates
+# data/processed/sdss/{train,val,test}.npz.
+
+data:
+  source: real
+  surveys: [sdss]
+  root: data/processed
+  num_workers: 4
+
+batch_size: 128
+epochs: 30
+lr: 1.0e-3
+weight_decay: 1.0e-4
+ens_beta: 0.9999
+focal_gamma: 2.0
+label_smoothing: 0.0
+amp: true              # mixed precision on GPU
+deterministic: true

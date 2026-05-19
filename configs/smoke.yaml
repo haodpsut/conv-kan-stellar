@@ -1,0 +1,21 @@
+# Smoke-test config: synthetic 7-class spectra, tiny model, CPU-OK.
+# Used by scripts/smoke_test.py and as a sanity test before real-data runs.
+
+data:
+  source: synthetic
+  n_per_class: 80      # 80 * 7 = 560 total samples (small enough to leave headroom)
+  seq_len: 512
+  noise_sigma: 0.18    # harder than trivial: stops everyone hitting 100% in <5 epochs
+  val_frac: 0.15
+  test_frac: 0.15
+  num_workers: 0       # 0 for Windows compatibility
+
+batch_size: 32
+epochs: 4              # short — smoke test
+lr: 2.0e-3
+weight_decay: 1.0e-4
+ens_beta: 0.999        # smaller beta because per-class counts are small (~100)
+focal_gamma: 2.0
+label_smoothing: 0.0
+amp: false             # off for CPU
+deterministic: true

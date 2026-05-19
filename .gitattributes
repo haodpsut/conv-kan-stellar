@@ -1,0 +1,9 @@
+# Force shell scripts to LF (they run on the Linux H200/4090 server)
+*.sh   text eol=lf
+# Python files: LF in repo, OS-native in working tree
+*.py   text eol=lf
+# Config / docs: same
+*.yml  text eol=lf
+*.yaml text eol=lf
+*.md   text eol=lf
+*.toml text eol=lf

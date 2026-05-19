@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "csnet"
+version = "0.1.0"
+description = "Scaling Conv-KAN for Multi-Survey Stellar Spectral Classification on NVIDIA H200"
+authors = [
+    {name = "Phuc Hao Do", email = "haodp.ai@gmail.com"},
+    {name = "Phu Huu Le", email = "phule9225@gmail.com"},
+    {name = "Hoang Ngoc Nguyen", email = "ngochoang0711@gmail.com"},
+]
+requires-python = ">=3.10"
+license = {text = "Apache-2.0"}
+readme = "README.md"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+addopts = "-v --tb=short"

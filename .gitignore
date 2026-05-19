@@ -1,0 +1,55 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.installed.cfg
+*.egg
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# Virtual envs
+venv/
+env/
+.venv/
+.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Data (downloaded surveys can be massive)
+data/raw/
+data/processed/
+data/cache/
+*.fits
+*.fits.gz
+*.fit
+*.h5
+*.hdf5
+*.parquet
+*.npz
+*.npy
+
+# Results: keep dir structure only (.gitkeep), ignore everything else
+results/*
+!results/.gitkeep
+mlruns/
+wandb/
+logs/
+
+# Notebooks
+.ipynb_checkpoints/
+
+# OS
+Thumbs.db
