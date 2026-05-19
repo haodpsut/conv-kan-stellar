@@ -48,6 +48,13 @@ mlruns/
 wandb/
 logs/
 
+# Trained model weights — downloaded from GitHub Release, not committed
+weights/
+app/samples_fits/
+
+# Streamlit local cache
+.streamlit/secrets.toml
+
 # Notebooks
 .ipynb_checkpoints/
 

@@ -53,7 +53,12 @@ conv-kan-stellar/
 │   ├── data.py            ← synthetic generator + real-survey loaders
 │   ├── models.py          ← Conv-KAN (proposed) + 5 baselines
 │   ├── losses.py          ← ENS-Focal loss (Cui+2019)
+│   ├── xai.py             ← Integrated Gradients attribution
 │   └── train.py           ← training/eval CLI
+├── app/
+│   ├── streamlit_app.py   ← "AstroClassify by Agentra" web demo
+│   ├── inference.py       ← multi-model loader + per-model latency timer
+│   └── samples.py         ← pre-loaded sample spectra
 ├── configs/
 │   ├── smoke.yaml         ← synthetic data, tiny model, 3 seeds (CPU OK)
 │   ├── sdss_only.yaml     ← real SDSS DR19 BOSS, single survey
@@ -67,6 +72,35 @@ conv-kan-stellar/
 │   └── run_seed_sweep.sh  ← bash loop: 30 seeds × N models on H200
 └── tests/
     └── test_models.py     ← shape/forward-pass tests for every model
+```
+
+---
+
+## Running the AstroClassify demo locally
+
+```bash
+conda activate csnet
+streamlit run app/streamlit_app.py
+# opens at http://localhost:8501
+```
+
+The demo works in **DEMO MODE** with random weights until trained checkpoints are downloaded to `weights/<model>.pt`. UI, inference pipeline, and Integrated Gradients XAI flow are fully functional in DEMO MODE — only the predicted classes are meaningless until real weights land.
+
+### Deploying to Agentra VPS (production)
+
+```bash
+# On the VPS (Ubuntu, conda-only, no sudo)
+git pull
+conda activate csnet
+# Drop trained weights from H200 training into weights/
+mkdir -p weights && cd weights
+gh release download v0.2-h200 --pattern '*.pt'   # or wget the release URLs
+cd ..
+# Run on port 8103 (cdr-steward = 8101, kdcl-steward = 8102, astroclassify = 8103)
+tmux new -d -s astroclassify "streamlit run app/streamlit_app.py \
+    --server.port 8103 --server.address 0.0.0.0 --browser.gatherUsageStats false"
+# Expose via Cloudflare named tunnel
+cloudflared tunnel run astroclassify
 ```
 
 ---
